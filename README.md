@@ -11,7 +11,7 @@ falls back to the iPhone voice.
 
 ## Install
 
-Every push to `main` builds an unsigned IPA (`readaloud-ipa` artifact) on a macOS runner.
+Every push to `main` builds an unsigned IPA on a macOS runner and puts it on the `latest` release as `ReadAloud.ipa`.
 
 Install the IPA with **SideStore, AltStore or Sideloadly**, keeping app extensions. Not inside
 LiveContainer: apps there can't register extensions with iOS, so Safari would never see it.

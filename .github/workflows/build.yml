@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: build-${{ github.ref }}
@@ -73,6 +73,20 @@ jobs:
           ditto "$app" "$RUNNER_TEMP/Package/Payload/ReadAloud.app"
           (cd "$RUNNER_TEMP/Package" && zip -q -r -y -X "$GITHUB_WORKSPACE/artifacts/ReadAloud.ipa" Payload)
           ls -la artifacts
+
+      - name: Publish to the Latest release
+        # A fixed download link for the newest IPA from main, so it installs straight from Safari.
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          notes="Newest build of main ($GITHUB_SHA). Install ReadAloud.ipa with SideStore or AltStore, not LiveContainer."
+          if gh release view latest >/dev/null 2>&1; then
+            gh release edit latest --notes "$notes" --target "$GITHUB_SHA"
+          else
+            gh release create latest --title "Latest build" --notes "$notes" --target "$GITHUB_SHA"
+          fi
+          gh release upload latest artifacts/ReadAloud.ipa --clobber
 
       - name: Upload
         if: ${{ !cancelled() }}
