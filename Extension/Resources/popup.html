@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="popup.css">
+  <script src="settings.js"></script>
+  <script src="popup.js" defer></script>
+</head>
+<body>
+  <div class="actions">
+    <button id="read" class="primary">Read highlighted text</button>
+    <button id="readPage">Read this page</button>
+    <button id="stop">Stop</button>
+  </div>
+  <p id="note" class="note" hidden></p>
+
+  <h2>Voice</h2>
+  <div class="card">
+    <label class="row">
+      <span>Voice</span>
+      <select id="voiceURI"><option value="">Automatic</option></select>
+    </label>
+    <label class="row">
+      <span>Speed <b id="rateLabel"></b></span>
+      <input id="rate" type="range" min="0.5" max="2.5" step="0.05">
+    </label>
+    <label class="row">
+      <span>Speaker button when text is highlighted</span>
+      <input id="showButton" type="checkbox" class="switch">
+    </label>
+    <button id="testVoice" class="small">Test voice</button>
+  </div>
+
+  <h2>Your speech server</h2>
+  <div class="card">
+    <label class="row">
+      <span>Use my speech server</span>
+      <input id="useServer" type="checkbox" class="switch">
+    </label>
+    <div id="serverFields">
+      <label class="stack">
+        <span>Address</span>
+        <input id="serverURL" type="url" placeholder="https://my-pc.tailnet.ts.net/v1" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </label>
+      <label class="stack">
+        <span>Key (optional)</span>
+        <input id="serverKey" type="password" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </label>
+      <label class="stack">
+        <span>Model</span>
+        <input id="serverModel" type="text" placeholder="kokoro" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </label>
+      <label class="stack">
+        <span>Voice name</span>
+        <input id="serverVoice" type="text" placeholder="af_heart" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </label>
+      <button id="testServer" class="small">Test server</button>
+      <p class="hint">Any server with OpenAI's speech API works (speaches, Kokoro-FastAPI, OpenAI). If it fails, Read Aloud switches to the iPhone voice.</p>
+    </div>
+  </div>
+</body>
+</html>

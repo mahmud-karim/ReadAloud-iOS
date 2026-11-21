@@ -1,0 +1,5 @@
+*.xcodeproj
+Generated/
+build/
+artifacts/
+.DS_Store
